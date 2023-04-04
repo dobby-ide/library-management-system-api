@@ -20,7 +20,7 @@
 ```Users endpoints here```
 
 POST /api/v1/user/login/
-POST /api/v1/user/logout/
+POST /api/v1/user/logout/{token}
 PUT /api/v1/user/{userId}
 
 
