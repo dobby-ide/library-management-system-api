@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: The library Management System 3.0
+  description: |-
+    This is a library management system Server based on the OpenAPI 3.0 specification.
+  contact:
+    email: fabio_alex@email.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about the library-Server
+  url: http://thelibraryServer.io
+servers:
+  - url: https://libray.swagger.io/api/v1
+tags:
+  - name: books
+    description: all your favs books
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: store
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+  - name: user
+    description: Operations about user
+paths:
+  /api/v1/user/login:
+    put:
+      tags:
+        - user
+      summary: Login a user
+      description: User
+
+      requestBody:
+        description: User token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: access token for the login
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+
+  /api/v1/user/logout/{logout}:
+    put:
+      tags:
+        - User
+      parameters:
+        name: token
+        in: path
+        description: User token when the user was logged in
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Not authorized
+        '500':
+          description: server error
+
+  /api/v1/user/{userId}:
+    put:
+      summary: Update a user infos
+      tags: User
+      parameters:
+        name: userId
+        in: path
+        description: Id of user to be updated
+        required: true
+        schema:
+          type: number
+        name: body
+        in: body
+        description: user object that contains updated info
+        required: true
+        schema:
+          $ref: '#/definitions/UserInput'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '401':
+          description: not authorized
+        '404':
+          description: user not found
+        '500':
+          description: Internal server error
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+      email:
+        type: string
+    required:
+      - id
+      - name
+      - email
+  UserInput:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+    required:
+      - name
+      - email
+
