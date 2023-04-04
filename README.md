@@ -21,6 +21,8 @@
 
 POST /api/v1/user/login/
 POST /api/v1/user/logout/
-PUT /api/v1/user/update/{userId}
+POST /api/v1/users/login
+POST /api/v1/users/logout
+PUT /api/v1/users/{userId}
 
 
