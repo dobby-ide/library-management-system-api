@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: The library 4 System 3.0
+  description:
+    This is a library management system Server based on the OpenAPI 3.0 specification.
+  version: 1.0.0
+
+servers:
+  - url: https:/localhost:8080/api/v1
+
+paths:
+  /categories/{categoryID}:
+    get:
+      tags:
+        - Category
+      summary: get a single category by its ID
+      description: one Category
+      operationId: get_one_category
+      parameters:
+        - name: categoryID
+          in: path
+          description: an integer to identify the category
+          required: true
+          schema:
+            schema:
+            type: string
+          example: 951-98548-9-4
+      responses:
+        "200":
+          description: Successful response with one book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+      "404":
+        description: category not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: error message
+            example:
+              error: category not found
+
+
+
+
+  /categories:
+    get:
+      tags:
+      - Category
+      summary: get all categories
+      description: Category
+      operationId: get_All_Categories
+
+      responses:
+        "200":
+          description: Categories successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+
+
+components:
+  schemas:
+    Category:
+      type: object
+      required:
+        - ID
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Fiction"
+    Categories:
+      type: array
+      items:
+        $ref: '#/components/schemas/Category'
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
