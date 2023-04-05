@@ -28,7 +28,7 @@ paths:
   /api/v1/user/login:
     post:
       tags:
-        - user
+        - User
       summary: Login a user
       description: User
 
