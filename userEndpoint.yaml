@@ -29,7 +29,7 @@ tags:
     description: Operations about user
 paths:
   /api/v1/user/login:
-    put:
+    post:
       tags:
         - user
       summary: Login a user
@@ -68,7 +68,7 @@ paths:
           description: Validation exception
 
   /api/v1/user/logout/{logout}:
-    put:
+    post:
       tags:
         - User
       parameters:
