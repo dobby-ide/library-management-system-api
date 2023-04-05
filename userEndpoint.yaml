@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: The library Management System 3.0
+  title: The library 4 System 3.0
   description: |-
     This is a library management system Server based on the OpenAPI 3.0 specification.
   contact:
@@ -15,14 +15,14 @@ externalDocs:
 servers:
   - url: https://libray.swagger.io/api/v1
 tags:
-  - name: user
+  - name: User
     description: user defined operations
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: user
+  - name: User
     description: Operations about user
-  - name: user
+  - name: User
     description: Operations about user
 paths:
   /api/v1/user/login:
@@ -31,9 +31,8 @@ paths:
         - User
       summary: Login a user
       description: User
-
       requestBody:
-        description: User token
+        description: User email and password
         content:
           application/json:
             schema:
@@ -74,7 +73,11 @@ paths:
         description: User token when the user was logged in
         required: true
         schema:
-          type: array
+          type: object
+          properties:
+                  token:
+                    type: string
+                    description: access token to be deleted by the server
       responses:
         '200':
           description: OK
@@ -94,10 +97,22 @@ paths:
         description: Id of user to be updated
         required: true
         schema:
-          $ref: '#/definitions/UserInput'
+          type: object
+          properties:
+                  userId:
+                    type: string
+                    description: userId to identify the user to be updated
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    newUserName:
+                      type: string
+                      description: the new userName of the user
         '401':
           description: not authorized
         '404':
