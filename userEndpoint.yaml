@@ -15,16 +15,13 @@ externalDocs:
 servers:
   - url: https://libray.swagger.io/api/v1
 tags:
-  - name: books
-    description: all your favs books
+  - name: user
+    description: user defined operations
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
+  - name: user
+    description: Operations about user
   - name: user
     description: Operations about user
 paths:
@@ -67,17 +64,18 @@ paths:
         '405':
           description: Validation exception
 
-  /api/v1/user/logout/{logout}:
-    post:
+  /api/v1/user/logout/{token}:
+    POST:
       tags:
         - User
       parameters:
-        name: token
-        in: path
-        description: User token when the user was logged in
-        required: true
-        schema:
-          type: string
+      -name: token
+      in: path
+      type: array
+      description: User token when the user was logged in
+      required: true
+      schema:
+          type: array
       responses:
         '200':
           description: OK
@@ -87,16 +85,16 @@ paths:
           description: server error
 
   /api/v1/user/{userId}:
-    put:
+    PUT:
       summary: Update a user infos
       tags: User
       parameters:
-        name: userId
-        in: path
-        description: Id of user to be updated
-        required: true
-        schema:
-          type: number
+      -name: userId
+      in: path
+      description: Id of user to be updated
+      required: true
+      schema:
+        type: number
         name: body
         in: body
         description: user object that contains updated info
@@ -138,4 +136,3 @@ definitions:
     required:
       - name
       - email
-
