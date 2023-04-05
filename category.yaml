@@ -9,22 +9,44 @@ servers:
   - url: https:/localhost:8080/api/v1
 
 paths:
+
+
   /categories/{categoryID}:
-    get:
+    delete:
       tags:
         - Category
-      summary: get a single category by its ID
-      description: one Category
-      operationId: get_one_category
+      summary: delete one category
+      description: delete a category
+      parameters:
+       -  name: categoryID
+          in: path
+          description: an integer that identify a category
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "204":
+          description: no content
+        "404":
+          description: not found
+
+
+    get:
       parameters:
         - name: categoryID
           in: path
           description: an integer to identify the category
           required: true
           schema:
-            schema:
-            type: string
-          example: 951-98548-9-4
+            type: integer
+            example: 1
+      tags:
+        - Category
+      summary: get a single category by its ID
+      description: one Category
+      operationId: get_one_category
+
       responses:
         "200":
           description: Successful response with one book
@@ -107,3 +129,5 @@ components:
           type: integer
         message:
           type: string
+
+
