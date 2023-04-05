@@ -65,16 +65,15 @@ paths:
           description: Validation exception
 
   /api/v1/user/logout/{token}:
-    POST:
+    post:
       tags:
         - User
       parameters:
-      -name: token
-      in: path
-      type: array
-      description: User token when the user was logged in
-      required: true
-      schema:
+      - name: token
+        in: path
+        description: User token when the user was logged in
+        required: true
+        schema:
           type: array
       responses:
         '200':
@@ -85,54 +84,23 @@ paths:
           description: server error
 
   /api/v1/user/{userId}:
-    PUT:
+    put:
       summary: Update a user infos
-      tags: User
+      tags:
+       - User
       parameters:
-      -name: userId
-      in: path
-      description: Id of user to be updated
-      required: true
-      schema:
-        type: number
-        name: body
-        in: body
-        description: user object that contains updated info
+      - name: userId
+        in: path
+        description: Id of user to be updated
         required: true
         schema:
           $ref: '#/definitions/UserInput'
       responses:
         '200':
           description: OK
-          schema:
-            $ref: '#/definitions/User'
         '401':
           description: not authorized
         '404':
           description: user not found
         '500':
           description: Internal server error
-definitions:
-  User:
-    type: object
-    properties:
-      id:
-        type: number
-      name:
-        type: string
-      email:
-        type: string
-    required:
-      - id
-      - name
-      - email
-  UserInput:
-    type: object
-    properties:
-      name:
-        type: string
-      email:
-        type: string
-    required:
-      - name
-      - email
