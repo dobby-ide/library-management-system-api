@@ -10,7 +10,26 @@ servers:
 
 
 paths:
-  /api/categories:
+  /categories:
+    get:
+      tags:
+      - Category
+      summary: get all categories
+      description: Category
+      operationId: get_All_Categories
+      responses:
+        "200":
+          description: Categories successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categories"
+        default:
+          description: Errors
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     post:
       summary: Create a new category
       requestBody:
@@ -57,6 +76,53 @@ paths:
 
 
   /categories/{categoryID}:
+    put:
+      summary: update an existing category
+      parameters:
+      - in: path
+        name: categoryID
+        required: true
+        description: ID of the category to be updated
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: the update name of the category
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: id of the category to be updated
+                  name:
+                    type: string
+                    description: updated name of the category
+                  description:
+                    type: string
+                    description: updated description of category
+        "404":
+          description: not found
+        "500":
+          description: server error
+
+
+
+
+
     delete:
       tags:
         - Category
@@ -117,35 +183,6 @@ paths:
                   description: error message
             example:
               error: category not found
-
-
-
-
-  /categories:
-    get:
-      tags:
-      - Category
-      summary: get all categories
-      description: Category
-      operationId: get_All_Categories
-
-      responses:
-        "200":
-          description: Categories successfully retrieved
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Categories"
-        default:
-          description: Errors
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-
-
-
 components:
   schemas:
     Category:
