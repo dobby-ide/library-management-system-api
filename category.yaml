@@ -8,7 +8,52 @@ info:
 servers:
   - url: https:/localhost:8080/api/v1
 
+
 paths:
+  /api/categories:
+    post:
+      summary: Create a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the category
+                description:
+                  type: string
+                  description: A description of the category
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: The ID of the newly created category
+                  name:
+                    type: string
+                    description: The name of the category
+                  description:
+                    type: string
+                    description: A description of the category
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+
+
 
 
   /categories/{categoryID}:
@@ -59,10 +104,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Category"
-      "404":
-        description: category not found
-        content:
+                $ref: "#/components/schemas/Error"
+        "404":
+         description: category not found
+         content:
           application/json:
             schema:
               type: object
